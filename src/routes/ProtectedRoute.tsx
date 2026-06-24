@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../features/auth/authService';
+import { useAuth } from '../features/auth/AuthContext';
 
 // ============================================
 // RUTA PROTEGIDA

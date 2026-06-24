@@ -1,37 +1,25 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from '../features/auth/authService';
+import { AuthProvider } from '../features/auth/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-
-// Importamos Tasks como placeholder por ahora
-// Lo reemplazaremos cuando creemos la página real
-function TasksPlaceholder() {
-  return <div style={{ padding: '2rem' }}>Página de tareas — próximamente</div>;
-}
+import Tasks from '../pages/Tasks';
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
-      {/* AuthProvider envuelve todo para que cualquier componente
-          pueda acceder al estado de autenticación */}
       <AuthProvider>
         <Routes>
-          {/* Rutas públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* Rutas protegidas */}
           <Route
             path="/tasks"
             element={
               <ProtectedRoute>
-                <TasksPlaceholder />
+                <Tasks />
               </ProtectedRoute>
             }
           />
-
-          {/* Ruta por defecto */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>
