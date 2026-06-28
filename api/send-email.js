@@ -36,4 +36,13 @@ export default async function handler(req, res) {
       Source: process.env.AWS_SES_FROM_EMAIL,
       Destination: { ToAddresses: [email] },
       Message: {
-        Subject: {
+        Subject: { Data: 'Resumen de tus tareas - MateCode Tasks', Charset: 'UTF-8' },
+        Body: { Html: { Data: htmlBody, Charset: 'UTF-8' } },
+      },
+    }));
+    return res.status(200).json({ message: 'Email enviado correctamente' });
+  } catch (error) {
+    console.error('Error SES:', error);
+    return res.status(500).json({ error: 'Error al enviar el email' });
+  }
+}
