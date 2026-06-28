@@ -14,7 +14,10 @@ export type Task = {
   updatedAt: Date;
 };
 
-
+export type TaskFormValues = {
+  title: string;
+  description: string;
+};
 
 export type AuthFormValues = {
   email: string;

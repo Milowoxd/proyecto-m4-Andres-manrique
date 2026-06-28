@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import type { Task, TaskFormValues } from '../types';
 import TaskForm from './TaskForm';
 
 interface TaskItemProps {
@@ -49,20 +49,8 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemP
         </div>
       </div>
       <div className="task-actions">
-        <button
-          className="btn-icon"
-          onClick={() => setIsEditing(true)}
-          title="Editar"
-        >
-          
-        </button>
-        <button
-          className="btn-icon btn-icon--danger"
-          onClick={() => onDelete(task.id)}
-          title="Eliminar"
-        >
-          
-        </button>
+        <button className="btn-icon" onClick={() => setIsEditing(true)}>✏️</button>
+        <button className="btn-icon btn-icon--danger" onClick={() => onDelete(task.id)}>🗑️</button>
       </div>
     </div>
   );

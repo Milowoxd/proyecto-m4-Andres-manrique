@@ -11,25 +11,12 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import type { Task, TaskFormValues } from '../types';
 
-
-// ============================================
-// REFERENCIA A LA COLECCIÓN
-// ============================================
 const tasksCollection = collection(db, 'tasks');
 
-// ============================================
-// SUSCRIPCIÓN EN TIEMPO REAL
-// ============================================
-// onSnapshot escucha cambios en Firestore en tiempo real.
-// Cada vez que se crea, edita o elimina una tarea,
-// llama al callback con la lista actualizada.
-export function subscribeToTasks(
-  userId: string,
-  callback: (tasks: Task[]) => void
-) {
+export function subscribeToTasks(userId: string, callback: (tasks: Task[]) => void) {
   const q = query(tasksCollection, where('userId', '==', userId));
-
   return onSnapshot(q, (snapshot) => {
     const tasks = snapshot.docs.map((doc) => {
       const data = doc.data();
@@ -47,9 +34,6 @@ export function subscribeToTasks(
   });
 }
 
-// ============================================
-// CREAR TAREA
-// ============================================
 export async function createTask(userId: string, values: TaskFormValues) {
   return addDoc(tasksCollection, {
     ...values,
@@ -60,32 +44,16 @@ export async function createTask(userId: string, values: TaskFormValues) {
   });
 }
 
-// ============================================
-// ACTUALIZAR TAREA
-// ============================================
 export async function updateTask(taskId: string, values: Partial<TaskFormValues>) {
   const taskRef = doc(db, 'tasks', taskId);
-  return updateDoc(taskRef, {
-    ...values,
-    updatedAt: serverTimestamp(),
-  });
+  return updateDoc(taskRef, { ...values, updatedAt: serverTimestamp() });
 }
 
-// ============================================
-// MARCAR COMO COMPLETADA
-// ============================================
 export async function toggleTaskComplete(taskId: string, completed: boolean) {
   const taskRef = doc(db, 'tasks', taskId);
-  return updateDoc(taskRef, {
-    completed,
-    updatedAt: serverTimestamp(),
-  });
+  return updateDoc(taskRef, { completed, updatedAt: serverTimestamp() });
 }
 
-// ============================================
-// ELIMINAR TAREA
-// ============================================
 export async function deleteTask(taskId: string) {
-  const taskRef = doc(db, 'tasks', taskId);
-  return deleteDoc(taskRef);
+  return deleteDoc(doc(db, 'tasks', taskId));
 }

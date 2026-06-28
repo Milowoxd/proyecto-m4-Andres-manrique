@@ -1,11 +1,15 @@
 import { useState } from 'react';
 
+type TaskFormValues = {
+  title: string;
+  description: string;
+};
 
-interface TaskFormProps {
+type TaskFormProps = {
   onSubmit: (values: TaskFormValues) => void;
   initialValues?: TaskFormValues;
   submitLabel?: string;
-}
+};
 
 export default function TaskForm({
   onSubmit,
@@ -19,12 +23,10 @@ export default function TaskForm({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-
     if (!title.trim()) {
-      setError('El título es obligatorio.');
+      setError('El titulo es obligatorio.');
       return;
     }
-
     onSubmit({ title: title.trim(), description: description.trim() });
     setTitle('');
     setDescription('');
@@ -33,7 +35,7 @@ export default function TaskForm({
   return (
     <form onSubmit={handleSubmit} className="task-form">
       <div className="form-group">
-        <label htmlFor="title">Título</label>
+        <label htmlFor="title">Titulo</label>
         <input
           id="title"
           type="text"
@@ -42,20 +44,17 @@ export default function TaskForm({
           placeholder="Nombre de la tarea"
         />
       </div>
-
       <div className="form-group">
-        <label htmlFor="description">Descripción</label>
+        <label htmlFor="description">Descripcion</label>
         <textarea
           id="description"
           value={description}
           onChange={e => setDescription(e.target.value)}
-          placeholder="Descripción opcional"
+          placeholder="Descripcion opcional"
           rows={3}
         />
       </div>
-
       {error && <p className="form-error">{error}</p>}
-
       <button type="submit" className="btn-primary">
         {submitLabel}
       </button>

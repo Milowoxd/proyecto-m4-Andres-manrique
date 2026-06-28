@@ -1,10 +1,11 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import type { Task, TaskFormValues } from '../types';
 import { subscribeToTasks, createTask, updateTask, toggleTaskComplete, deleteTask } from '../services/taskService';
 
 export function useTasks(userId: string) {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!userId) return;
@@ -16,22 +17,22 @@ export function useTasks(userId: string) {
     return () => unsubscribe();
   }, [userId]);
 
-  async function addTask(values) {
+  async function addTask(values: TaskFormValues) {
     try { await createTask(userId, values); }
     catch { setError('Error al crear la tarea.'); }
   }
 
-  async function editTask(taskId, values) {
+  async function editTask(taskId: string, values: Partial<TaskFormValues>) {
     try { await updateTask(taskId, values); }
     catch { setError('Error al actualizar la tarea.'); }
   }
 
-  async function toggleComplete(taskId, completed) {
+  async function toggleComplete(taskId: string, completed: boolean) {
     try { await toggleTaskComplete(taskId, completed); }
     catch { setError('Error al actualizar la tarea.'); }
   }
 
-  async function removeTask(taskId) {
+  async function removeTask(taskId: string) {
     try { await deleteTask(taskId); }
     catch { setError('Error al eliminar la tarea.'); }
   }

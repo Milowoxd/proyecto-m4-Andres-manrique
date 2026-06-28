@@ -1,4 +1,5 @@
 
+import type { Task, TaskFormValues } from '../types';
 import TaskItem from './TaskItem';
 
 interface TaskListProps {
@@ -12,7 +13,7 @@ export default function TaskList({ tasks, onToggle, onEdit, onDelete }: TaskList
   if (tasks.length === 0) {
     return (
       <div className="task-list--empty">
-        <p>No tienes tareas todavía. ¡Crea una!</p>
+        <p>No tienes tareas todavia. Crea una!</p>
       </div>
     );
   }
