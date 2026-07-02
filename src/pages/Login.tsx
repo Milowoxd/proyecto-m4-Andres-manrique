@@ -39,30 +39,28 @@ export default function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1 className="auth-title">MateCode Tasks</h1>
-        <p className="auth-subtitle">Inicia sesión para continuar</p>
+        <div className="auth-header">
+          <h1 className="auth-title">MateCode Tasks</h1>
+          <p className="auth-subtitle">Inicia sesion para continuar</p>
+        </div>
 
         <form onSubmit={handleEmailLogin} className="auth-form">
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
+          <div className="input-group">
             <input
-              id="email"
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="tu@email.com"
+              placeholder="Email"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
+          <div className="input-group">
             <input
-              id="password"
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder="Tu contraseña"
+              placeholder="Contrasena"
               required
             />
           </div>
@@ -70,7 +68,7 @@ export default function Login() {
           {error && <p className="auth-error">{error}</p>}
 
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+            {loading ? 'Iniciando sesion...' : 'Iniciar sesion'}
           </button>
         </form>
 
@@ -84,7 +82,7 @@ export default function Login() {
         </button>
 
         <p className="auth-link">
-          ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+          No tienes cuenta? <Link to="/register">Registrate</Link>
         </p>
       </div>
     </div>

@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "preview": "vite preview",
+  "test": "vitest",
+  "test:run": "vitest run"
+},
   "dependencies": {
     "@aws-sdk/client-ses": "^3.1075.0",
     "firebase": "^12.15.0",
