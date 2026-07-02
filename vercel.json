@@ -5,7 +5,11 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/((?!src|assets|favicon|node_modules|@vite|@react-refresh).*)",
+      "source": "/((?!assets|src).*\\.(js|css|ico|svg|png|jpg|jpeg|woff|woff2))",
+      "destination": "/$1"
+    },
+    {
+      "source": "/((?!api).*)",
       "destination": "/index.html"
     }
   ]
